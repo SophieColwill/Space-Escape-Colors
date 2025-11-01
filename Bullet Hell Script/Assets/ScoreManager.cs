@@ -32,5 +32,6 @@ public class ScoreManager : Singleton<ScoreManager>
             HighScore = CurrentTime;
         }
         CurrentTime = 0;
+        Player.ShipBoostValue = 8;
     }
 }
