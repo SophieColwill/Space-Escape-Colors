@@ -1,15 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : Subject
 {
     public float PlayerSpeed = 5;
     public Vector2 PlaySpace;
     public Sprite NormalShip;
     public Sprite BoostingShip;
     SpriteRenderer shipRenderer;
-    public float ShipBoostValue = 200;
+    public static float ShipBoostValue = 8;
     public Slider BoostVisualiser;
+
+    RemoveShipBoost shipBoostReference;
+    bool isBoostDisabled = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,6 +22,8 @@ public class Player : MonoBehaviour
         //Set the Boost Slider MaxValue & Value to the boost value.
         BoostVisualiser.maxValue = ShipBoostValue;
         BoostVisualiser.value = ShipBoostValue;
+        shipBoostReference = gameObject.AddComponent<RemoveShipBoost>();
+        Attach(gameObject.AddComponent<TimerScript>());
     }
 
     // Update is called once per frame
@@ -41,16 +46,28 @@ public class Player : MonoBehaviour
                 CurrentShipSpeed = CurrentShipSpeed * 1.5f;
                 ShipBoostValue -= Time.deltaTime;
                 BoostVisualiser.value = ShipBoostValue;
+                Attach(shipBoostReference);
             }
             //Is NOT pressing Left Shift, set the ship sprite to the regular ship.
             else
             {
                 shipRenderer.sprite = NormalShip;
             }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                Detach(shipBoostReference);
+            }
         }
         else
         {
             shipRenderer.sprite = NormalShip;
+
+            if (!isBoostDisabled)
+            {
+                Detach(shipBoostReference);
+                isBoostDisabled = true;
+            }
         }
 
         //Move Player using WASD / Arrow keys
