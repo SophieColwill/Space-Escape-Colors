@@ -7,3 +7,8 @@ I think that my implementation of the Factory workflow was a rather good use of 
 
 ## Factory Implementation
 <img width="531" height="521" alt="Factory Implementation" src="https://github.com/user-attachments/assets/2415c9c9-a4ae-4f89-9366-97b235073c04" />
+
+## Observer Implementation
+My implementation of the Observer design pattern is used in a way that plays into the game's previous strengths. It is used for the time based actions of the game, primarily the score timer, but it also decreases the Boost value when the player presses the shift key. I used it here because I thought that adding a time based subscription would be benificial in case I wanted to add power ups in the future that have to go away after a set time. Also since alot of my project relies on time, I belive it was benifical to group them in subscribable and unsubscribable sections to make it easier to manage.
+
+<img width="559" height="444" alt="Screenshot 2025-11-01 045735" src="https://github.com/user-attachments/assets/03af4a6b-6ce5-44fc-9f2d-89d437820c5f" />
